@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class StudentsDAOImplemention implements StudentsDAO {
@@ -45,7 +44,19 @@ public class StudentsDAOImplemention implements StudentsDAO {
             return null;
         }
     }
-//
-//    @Override
-//    public
+
+    @Override
+    public Students getStudent(int Stuid){
+        try (Session session=HibernateSessionUtil.getSession()){
+            System.out.println("id: "+Stuid);
+            return (Students)session.get(Students.class,Stuid);
+        }catch (HibernateException exception){
+            System.out.println("Hibernate Exception");
+            System.out.println(exception.getLocalizedMessage());
+            return null;
+        }catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
+    }
 }

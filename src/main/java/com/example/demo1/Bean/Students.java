@@ -29,24 +29,10 @@ public class Students {
     @Column(name = "password")
     private String password;
 
-    public Students() {
-    }
-//    public HashMap<String,Object> getDetails(){
-//        HashMap<String,Object> details=new HashMap<>();
-//        details.put("student_id",this.student_id);
-//        details.put("fname",this.fname);
-//        details.put("lname",this.lname);
-//        details.put("roll_number",this.roll_number);
-//        details.put("email",this.email);
-//        details.put("photograph_path",this.photograph_path);
-//        details.put("cgpa",this.cgpa);
-//        details.put("total_credit",this.total_credit);
-//        details.put("graduation_year",this.graduation_year);
-//        return details;
-//    }
     public int getStudent_id() {
         return student_id;
     }
+
     public void setStudent_id(int student_id) {
         this.student_id = student_id;
     }
@@ -118,6 +104,7 @@ public class Students {
     @Override
     public String toString() {
         return "Students{" +
+                "student_id'"+student_id+'\''+
                 "fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", roll_number=" + roll_number +

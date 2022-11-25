@@ -19,19 +19,30 @@ public class StudentsController extends Application {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response add_student(Students student){
-        System.out.println(String.valueOf(student));
+        System.out.println(student);
         if (studentsDAO.addStudent(student)){
             return Response.status(200).entity("Success").build();
         }
-        return Response.status(400).entity("Failure while adding department").build();
+        return Response.status(400).entity("Failure while adding student").build();
     }
 
     @GET
     @Path("/get_all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get_all_departments(){
+    public Response get_all_students(){
         List<Students> students = studentsDAO.getStudentList();
-        System.out.printf("Hello world");
         return Response.status(200).entity(students).build();
+    }
+
+    @GET
+    @Path("/get/{s_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get_student(@PathParam("s_id") int id){
+        System.out.println(id);
+        Students students=this.studentsDAO.getStudent(id);
+        if(students!=null){
+            return Response.status(200).entity(students).build();
+        }
+        return Response.status(400).entity("Failure in getting student details").build();
     }
 }
