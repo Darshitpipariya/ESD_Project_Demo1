@@ -1,0 +1,130 @@
+package com.example.demo1.Bean;
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.util.*;
+@Entity
+@Table(name="Students")
+public class Students {
+    @Id
+    @Column(name="student_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int student_id;
+    @Column(name="fname",nullable = false)
+    private String fname;
+    @Column(name="lname")
+    private String lname;
+    @Column(name="roll_number",nullable = false,unique = true)
+    private int roll_number;
+    @Column(name="email",nullable = false,unique = true)
+    private String email;
+    @Column(name="cgpa",nullable = false,precision = 2)
+    @ColumnDefault(value = "0.0")
+    private float cgpa;
+    @Column(name="total_credit",nullable = false)
+    private int total_credit;
+    @Column(name="graduation_year")
+    private int graduation_year;
+    @Column(name = "password")
+    private String password;
+
+    public Students() {
+    }
+//    public HashMap<String,Object> getDetails(){
+//        HashMap<String,Object> details=new HashMap<>();
+//        details.put("student_id",this.student_id);
+//        details.put("fname",this.fname);
+//        details.put("lname",this.lname);
+//        details.put("roll_number",this.roll_number);
+//        details.put("email",this.email);
+//        details.put("photograph_path",this.photograph_path);
+//        details.put("cgpa",this.cgpa);
+//        details.put("total_credit",this.total_credit);
+//        details.put("graduation_year",this.graduation_year);
+//        return details;
+//    }
+    public int getStudent_id() {
+        return student_id;
+    }
+    public void setStudent_id(int student_id) {
+        this.student_id = student_id;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public int getRoll_number() {
+        return roll_number;
+    }
+
+    public void setRoll_number(int roll_number) {
+        this.roll_number = roll_number;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public float getCgpa() {
+        return cgpa;
+    }
+
+    public void setCgpa(float cgpa) {
+        this.cgpa = cgpa;
+    }
+
+    public int getTotal_credit() {
+        return total_credit;
+    }
+
+    public void setTotal_credit(int total_credit) {
+        this.total_credit = total_credit;
+    }
+
+    public int getGraduation_year() {
+        return graduation_year;
+    }
+
+    public void setGraduation_year(int graduation_year) {
+        this.graduation_year = graduation_year;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Students{" +
+                "fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", roll_number=" + roll_number +
+                ", email='" + email + '\'' +
+                ", cgpa=" + cgpa +
+                ", total_credit=" + total_credit +
+                ", graduation_year=" + graduation_year +
+                '}';
+    }
+}
