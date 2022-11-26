@@ -1,13 +1,19 @@
 package com.example.demo1.DAO.DAOImplementation;
+import com.example.demo1.Bean.Bills;
+import com.example.demo1.Bean.Student_Payment;
 import com.example.demo1.Bean.Students;
+import com.example.demo1.DAO.BillsDAO;
+import com.example.demo1.DAO.Student_PaymentDAO;
 import com.example.demo1.DAO.StudentsDAO;
 import com.example.demo1.Util.HibernateSessionUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class StudentsDAOImplemention implements StudentsDAO {
     @Override
@@ -50,6 +56,37 @@ public class StudentsDAOImplemention implements StudentsDAO {
         try (Session session=HibernateSessionUtil.getSession()){
             System.out.println("id: "+Stuid);
             return (Students)session.get(Students.class,Stuid);
+        }catch (HibernateException exception){
+            System.out.println("Hibernate Exception");
+            System.out.println(exception.getLocalizedMessage());
+            return null;
+        }catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Student_Payment> getDetails(int StudId){
+        try(Session session=HibernateSessionUtil.getSession()){
+            System.out.println("Id: "+ StudId);
+            List<Student_Payment> result=(List<Student_Payment>) session.createQuery("from Student_Payment where bill.students.student_id= :StudId").setParameter("StudId",StudId).list();
+            return result;
+        }
+    }
+
+    @Override
+    public Students login(Students students){
+        try(Session session=HibernateSessionUtil.getSession()){
+            String StudentEmail=students.getEmail();
+            String StudentPassword=students.getPassword();
+
+            Students students1=(Students) session.createQuery("from Students where email= :StudentEmail and password= :StudentPassword").setParameter("StudentPassword",StudentPassword).setParameter("StudentEmail",StudentEmail).uniqueResult();
+            if(students1==null){
+                return null;
+            }else{
+                return students1;
+            }
         }catch (HibernateException exception){
             System.out.println("Hibernate Exception");
             System.out.println(exception.getLocalizedMessage());
