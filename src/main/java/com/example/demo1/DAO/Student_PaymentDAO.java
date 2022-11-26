@@ -11,4 +11,5 @@ public interface Student_PaymentDAO {
     //get Payments for particular bill
     List<Student_Payment> getPaymentList( int billid);
     List<Student_Payment> getAllPaymentsList();
+    Student_Payment getPayment(int paymentid);
 }

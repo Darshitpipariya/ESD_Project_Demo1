@@ -29,6 +29,20 @@ public class Students {
     @Column(name = "password")
     private String password;
 
+    public Students() {
+    }
+
+    public Students(String fname, String lname, int roll_number, String email, float cgpa, int total_credit, int graduation_year, String password) {
+        this.fname = fname;
+        this.lname = lname;
+        this.roll_number = roll_number;
+        this.email = email;
+        this.cgpa = cgpa;
+        this.total_credit = total_credit;
+        this.graduation_year = graduation_year;
+        this.password = password;
+    }
+
     public int getStudent_id() {
         return student_id;
     }

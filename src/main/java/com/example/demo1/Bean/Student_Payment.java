@@ -19,6 +19,15 @@ public class Student_Payment {
     @JoinColumn(name="bill_id")
     private Bills bill;
 
+    public Student_Payment() {
+    }
+
+    public Student_Payment(int amount, String payment_date, Bills bill) {
+        this.amount = amount;
+        this.payment_date = payment_date;
+        this.bill = bill;
+    }
+
     public int getPayment_id() {
         return payment_id;
     }

@@ -2,6 +2,7 @@ package com.example.demo1.DAO.DAOImplementation;
 
 import com.example.demo1.Bean.Bills;
 import com.example.demo1.Bean.Student_Payment;
+import com.example.demo1.Bean.Students;
 import com.example.demo1.DAO.Student_PaymentDAO;
 import com.example.demo1.Util.HibernateSessionUtil;
 import org.hibernate.HibernateException;
@@ -16,6 +17,9 @@ public class Student_PaymentDAOImplementation implements Student_PaymentDAO {
     public boolean addPayment(Student_Payment student_payment){
         try(Session session=HibernateSessionUtil.getSession()){
             Transaction transaction=session.beginTransaction();
+            Bills bills=student_payment.getBill();
+            bills.setRemaining(bills.getRemaining()-student_payment.getAmount());
+            session.saveOrUpdate(bills);
             session.saveOrUpdate(student_payment);
             transaction.commit();
 
@@ -64,6 +68,21 @@ public class Student_PaymentDAOImplementation implements Student_PaymentDAO {
             return null;
         }catch (Exception exception){
             System.out.println(exception.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Student_Payment getPayment(int paymentid){
+        try (Session session=HibernateSessionUtil.getSession()){
+            System.out.println("id: "+paymentid);
+            return (Student_Payment) session.get(Student_Payment.class,paymentid);
+        }catch (HibernateException exception){
+            System.out.println("Hibernate Exception");
+            System.out.println(exception.getLocalizedMessage());
+            return null;
+        }catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
             return null;
         }
     }

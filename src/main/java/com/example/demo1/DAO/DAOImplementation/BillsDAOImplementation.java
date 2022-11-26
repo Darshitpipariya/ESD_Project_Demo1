@@ -29,6 +29,20 @@ public class BillsDAOImplementation implements BillsDAO {
         }
     }
     @Override
+    public Bills getBill(int billid){
+        try (Session session=HibernateSessionUtil.getSession()){
+            System.out.println("id: "+billid);
+            return (Bills)session.get(Bills.class,billid);
+        }catch (HibernateException exception){
+            System.out.println("Hibernate Exception");
+            System.out.println(exception.getLocalizedMessage());
+            return null;
+        }catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
+    }
+    @Override
     public List<Bills> getBillList(int stuid){
         try(Session session=HibernateSessionUtil.getSession()){
             Transaction transaction=session.beginTransaction();

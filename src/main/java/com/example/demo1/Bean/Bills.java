@@ -14,6 +14,8 @@ public class Bills {
     private String Description;
     @Column(name="amount",nullable = false)
     private int amount;
+    @Column(name="remaining",nullable = false)
+    private int remaining;
     @Column(name = "bill_date",nullable = false)
     private String bill_date;
     @ManyToOne
@@ -21,6 +23,13 @@ public class Bills {
     private Students students;
 
     public Bills() {
+    }
+
+    public Bills(int amount, String bill_date, Students students,int remaining) {
+        this.amount = amount;
+        this.bill_date = bill_date;
+        this.students = students;
+        this.remaining=remaining;
     }
 
     public int getBill_id() {
@@ -61,6 +70,14 @@ public class Bills {
 
     public void setStudents(Students students) {
         this.students = students;
+    }
+
+    public int getRemaining() {
+        return remaining;
+    }
+
+    public void setRemaining(int remaining) {
+        this.remaining = remaining;
     }
 
     @Override

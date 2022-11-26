@@ -1,6 +1,7 @@
 package com.example.demo1.Controller;
 
 import com.example.demo1.Bean.Bills;
+import com.example.demo1.Bean.Students;
 import com.example.demo1.DAO.BillsDAO;
 import com.example.demo1.DAO.DAOImplementation.BillsDAOImplementation;
 import jakarta.ws.rs.*;
@@ -30,7 +31,7 @@ public class Bill_Controller extends Application {
     @GET
     @Path("/get_all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get_all_payments(){
+    public Response get_all(){
         List<Bills> billsList=billsDAO.getAllBillsList();
         return Response.status(200).entity(billsList).build();
     }
@@ -38,8 +39,20 @@ public class Bill_Controller extends Application {
     @GET
     @Path("/get_all_bill_for_student/{student_id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get_all_payment(@PathParam("student_id") int student_id){
+    public Response get_all_bill_for_student(@PathParam("student_id") int student_id){
         List<Bills> billsList=billsDAO.getBillList(student_id);
         return Response.status(200).entity(billsList).build();
+    }
+
+    @GET
+    @Path("/get/{b_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get_bill(@PathParam("b_id") int id){
+        System.out.println(id);
+        Bills bills=billsDAO.getBill(id);
+        if(bills!=null){
+            return Response.status(200).entity(bills).build();
+        }
+        return Response.status(400).entity("Failure in getting bill details").build();
     }
 }

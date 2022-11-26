@@ -10,4 +10,5 @@ public interface BillsDAO {
     // get bill for perticulat student
     List<Bills> getBillList(int stuid);
     List<Bills> getAllBillsList();
+    Bills getBill(int billid);
 }
