@@ -22,9 +22,9 @@ public class StudentsController extends Application {
     public Response add_student(Students student){
         System.out.println(student);
         if (studentsDAO.addStudent(student)){
-            return Response.status(200).entity("Success").build();
+            return Response.ok().entity("Success").build();
         }
-        return Response.status(400).entity("Failure while adding student").build();
+        return Response.status(401).build();
     }
 
     @GET
@@ -32,7 +32,7 @@ public class StudentsController extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get_all_students(){
         List<Students> students = studentsDAO.getStudentList();
-        return Response.status(200).entity(students).build();
+        return Response.ok().entity(students).build();
     }
 
     @GET
@@ -42,9 +42,9 @@ public class StudentsController extends Application {
         System.out.println(id);
         Students students=studentsDAO.getStudent(id);
         if(students!=null){
-            return Response.status(200).entity(students).build();
+            return Response.ok().entity(students).build();
         }
-        return Response.status(400).entity("Failure in getting student details").build();
+        return Response.status(401).build();
     }
 
     @GET
@@ -54,9 +54,9 @@ public class StudentsController extends Application {
         System.out.println(id);
         List<Student_Payment> result=studentsDAO.getDetails(id);
         if(result!=null){
-            return Response.status(200).entity(result).build();
+            return Response.ok().entity(result).build();
         }
-        return Response.status(400).entity("Failure in getting student details").build();
+        return Response.status(401).build();
     }
 
     @POST
@@ -65,10 +65,10 @@ public class StudentsController extends Application {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(Students student) {
         Students student1 = studentsDAO.login(student);
-
+        List<Student_Payment> result=studentsDAO.getDetails(student1.getStudent_id());
         if (student1 == null)
-            return Response.status(400).entity("Wrong Email or Password").build();
+            return Response.status(401).build();
         else
-            return Response.status(200).entity(student1).build();
+            return Response.ok().entity(student1).build();
     }
 }
