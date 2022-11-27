@@ -65,7 +65,6 @@ public class StudentsController extends Application {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(Students student) {
         Students student1 = studentsDAO.login(student);
-        List<Student_Payment> result=studentsDAO.getDetails(student1.getStudent_id());
         if (student1 == null)
             return Response.status(401).build();
         else
